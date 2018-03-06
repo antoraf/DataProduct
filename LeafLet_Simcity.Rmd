@@ -1,0 +1,68 @@
+---
+title: "Leaflet"
+author: "Antonio Quintieri"
+date: "March 6th 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Crime map - like I remember from Simcity 
+<!--Text comment-->
+
+For the one of you that like me, spent tons of time on Simcity back in the 90' (yes, there where videogams in the '90), the map i'd like to make will look like the crime map from Sim City.
+If you haven't seen one, here the link to Wikipedia
+https://en.wikipedia.org/wiki/SimCity_(1989_video_game)
+
+To build is i'm going to use actual data from https://catalog.data.gov/dataset/crimes-2001-to-present-398a4 of a Chicago as Chicago was one of the possible scenario you could choose in the game. 
+  
+As in the game, the map will locate and show thoose locations where "More offenses"" were made so you can build there Police station.
+  
+The dataset is filtered for that specific crime type and plotted over Chicago map using the clustering method. As you zoom into the map, the cluster counts expands and exact location and counts are displayed.
+  
+  Leaflet features that were explored are
+  
+1. Clustering Markers
+2. Popup 
+3. Color
+4. CircleMarkers
+
+  
+  As you zoom in an click the location of the crime, (red Spot) and click the CASE # is displayed.
+
+  Following is the code to achieve the results.
+
+## STEP 1: Load the libraries
+```{r warning=FALSE, message=FALSE }
+  library(leaflet)
+  library(dplyr)
+
+```
+
+## STEP 2: Process the data
+   Load the data into the dataframe and filter out the records involving children using the filter command.
+   
+```{r warning=FALSE, message=FALSE }
+  Crime_2017<- read.csv(".\\.\\Crime_Chicago_2017.csv")
+  Crime_2017$Crime_Type <- factor(Crime_2017$Primary.Type)
+  Theft_Crime <- filter(Crime_2017, grepl('THEFT', Crime_Type) )
+```
+
+## STEP 3: Plot the map
+```{r  warning=FALSE, message=FALSE}
+  leaflet(Theft_Crime) %>% addTiles() %>%
+    addCircleMarkers(
+      radius=10,
+      labelOptions = labelOptions(noHide = T,direction = 'auto'),
+      popup = paste("Case #:", Theft_Crime$Case.Number,sep=" "),
+      color = "red",
+      stroke = FALSE,
+      fillOpacity = 0.7,
+      clusterOptions = markerClusterOptions()
+    ) %>%     addWMSTiles("https://catalog.data.gov/dataset/crimes-2001-to-present-398a4", attribution = "Offenses Involving Theft since 2017 @ Chicago")
+
+```
+
+
