@@ -2,7 +2,9 @@
 title: "Mileage per Hp/gear"
 author: "Antonio Quintieri"
 date: "March 15 2018"
-output: ioslides_presentation
+output:
+  ioslides_presentation: default
+  slidy_presentation: default
 ---
 
 ```{r setup, include=FALSE}
@@ -16,7 +18,7 @@ Using the `mtcars` dataset, I 'm looking at the relationship of hp/gear and cyli
 I plot hp/gear (`hp/gear`) vs. mileage (`mpg`) along the x/y axes, while the number of cylinders (`cyl`) as colors and the amount of horsepower (`hp`) as the size of an individual point in the plot.
 
 ## Conclusion
-Mileage is related to # of cylnder and within each class of cylinder, hp/gear seems not having any correlation with mileage.
+Mileage is related to # of cylinder and hp/gear seems also having strong correlation with mileage.
  
 ## Visualizing the Data
 
@@ -28,4 +30,16 @@ plot_ly(data = mtcars, x = ~hp/gear, y = ~mpg,
         type = "scatter", mode = "markers") %>%
   layout(title = "Car Data: mileage vs hp/gear")
 ```
+
+## graph 2
+```{r plot2, echo=FALSE}
+suppressPackageStartupMessages(library(plotly))
+plot_ly(data = mtcars, x = ~gear/hp, y = ~mpg, 
+        color = ~as.factor(gear), size = ~gear/hp,
+        text = ~paste("Hp: ", gear/hp, '<br>MPG:', mpg),
+        type = "scatter", mode = "markers") %>%
+  layout(title = "Car Data: mileage vs gear/hp")
+```
+
+
 
