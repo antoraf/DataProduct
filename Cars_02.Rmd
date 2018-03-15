@@ -1,0 +1,31 @@
+---
+title: "Mileage per Hp/gear"
+author: "Antonio Quintieri"
+date: "March 15 2018"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Understanding Gas Mileage vs hp/gear
+
+Using the `mtcars` dataset, I 'm looking at the relationship of hp/gear and cylinders factors to gas mileage (`mpg`).
+
+I plot hp/gear (`hp/gear`) vs. mileage (`mpg`) along the x/y axes, while the number of cylinders (`cyl`) as colors and the amount of horsepower (`hp`) as the size of an individual point in the plot.
+
+## Conclusion
+Mileage is related to # of cylnder and within each class of cylinder, hp/gear seems not having any correlation with mileage.
+ 
+## Visualizing the Data
+
+```{r plot, echo=FALSE}
+suppressPackageStartupMessages(library(plotly))
+plot_ly(data = mtcars, x = ~hp/gear, y = ~mpg, 
+        color = ~as.factor(cyl), size = ~hp/gear,
+        text = ~paste("Hp: ", hp/gear, '<br>MPG:', mpg),
+        type = "scatter", mode = "markers") %>%
+  layout(title = "Car Data: mileage vs hp/gear")
+```
+
