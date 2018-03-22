@@ -1,0 +1,12 @@
+name: FinalAssignment
+title: FinalAssignment
+username:
+account: antoraf
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 303951
+bundleId: 1283069
+url: https://antoraf.shinyapps.io/FinalAssignment/
+when: 1521747698.26832
+asMultiple: FALSE
+asStatic: FALSE

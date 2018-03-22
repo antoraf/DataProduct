@@ -1,0 +1,12 @@
+name: MPG_final
+title: MPG_final
+username:
+account: antoraf
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 305620
+bundleId: 1283363
+url: https://antoraf.shinyapps.io/MPG_final/
+when: 1521758971.74029
+asMultiple: FALSE
+asStatic: FALSE
